@@ -26,3 +26,15 @@ describe('Address Book', function() {
         expect(addressBook.getContact(0)).not.toBe(thisContact);
     })
 });
+
+// Asünkroonse meetodi testimise suite
+describe('Async Address Book', function() {
+    // Peaks oskama saada algsed kontaktid
+    it('should grab initial contacts', function() {
+        var addressBook = new AddressBook();
+
+        addressBook.getInitialContacts();
+        // Eeldan, et initialComplete on true
+        expect(addressBook.initialComplete).toBe(true);
+    });
+});
