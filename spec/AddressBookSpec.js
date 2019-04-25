@@ -3,7 +3,7 @@ describe('Address Book', function() {
     var addressBook,
         thisContact;
 
-    // Funktsioon, mis käivitatakse iga testi(it) alguses
+    // Funktsioon, mis käivitatakse iga test speci(it) alguses
     beforeEach(function() {
         addressBook = new AddressBook();
         thisContact = new Contact();
@@ -29,12 +29,22 @@ describe('Address Book', function() {
 
 // Asünkroonse meetodi testimise suite
 describe('Async Address Book', function() {
-    // Peaks oskama saada algsed kontaktid
-    it('should grab initial contacts', function() {
-        var addressBook = new AddressBook();
+    var addressBook = new AddressBook();
 
-        addressBook.getInitialContacts();
+    // Done annab Jasminele teada, et antud meetod on lõppenud, ehk done.
+    // Seega kasutatakse infot mis on meetodi lõpus, mitte alguses/vahepeal
+    beforeEach(function(done) {
+        // Kutsun välja getInitialContacts meetodi koos callbackiga, mis annab
+        // Jasminele teada, et meetod on oma töö lõpetanud.
+        addressBook.getInitialContacts(function() {
+            done();
+        });
+    });
+
+    // Peaks oskama saada algsed kontaktid
+    it('should grab initial contacts', function(done) {
         // Eeldan, et initialComplete on true
         expect(addressBook.initialComplete).toBe(true);
+        done();
     });
 });
