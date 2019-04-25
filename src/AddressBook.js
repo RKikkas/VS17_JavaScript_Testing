@@ -1,6 +1,20 @@
 function AddressBook() {
     this.contacts = [];
+    this.initialComplete = false;
 }
+
+// Meetod, mis tagastab algsed kontaktid
+AddressBook.prototype.getInitialContacts = function(cb) {
+    var self = this;
+
+    // setTimeout, et meetod oleks "asünkroonne"
+    setTimeout(function() {
+        self.initialComplete = true;
+        if (cb) {
+            return cb();
+        }
+    }, 3);
+};
 
 // Meetod mis lisab kontakti aadressiraamatusse
 AddressBook.prototype.addContact = function(contact) {
